@@ -1,4 +1,5 @@
 using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using BookShop.Helper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders(); ;
 builder.Services.AddControllersWithViews();
+
+builder.Services.ConfigureApplicationCookie(options=>{
+    options.LoginPath = "/UserManagement/Account/Login";
+});
 
 builder.Services.AddNotyf(options =>
     {
@@ -40,17 +45,18 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
+app.UseNotyf();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "area",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
 
 app.MapControllerRoute(
 name: "default",

@@ -1,3 +1,4 @@
+@model LoginVm
 @{
     Layout = null;
 }
@@ -36,13 +37,13 @@
                     <img src="~/login/images/img-01.png" alt="IMG">
                 </div>
 
-                <form class="login100-form validate-form">
+                <form asp-action="Login" class="login100-form validate-form">
                     <span class="login100-form-title">
                         Member Login
                     </span>
 
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        <input class="input100" type="text" name="email" placeholder="Email">
+                    <div class="wrap-input100 validate-input" data-validate="Username is requiredy">
+                        <input class="input100" type="text" placeholder="UserName" asp-for="UserName">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -50,11 +51,16 @@
                     </div>
 
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        <input class="input100" type="password" name="pass" placeholder="Password">
+                        <input class="input100" type="password" placeholder="Password" asp-for="Password">
                         <span class="focus-input100"></span>
                         <span class="symbol-input100">
                             <i class="fa fa-lock" aria-hidden="true"></i>
                         </span>
+                    </div>
+
+                    <div class="text-center">
+                        <input class="" type="checkbox" id="remember" asp-for="RememberMe" value="true">
+                        <label for="remember">Remember Me</span>
                     </div>
 
                     <div class="container-login100-form-btn">
@@ -98,7 +104,8 @@
     </script>
     <!--===============================================================================================-->
     <script src="~/login/js/main.js"></script>
-
+    <!--===============================================================================================-->
+    @await Component.InvokeAsync("Notyf")
 </body>
 
 </html>

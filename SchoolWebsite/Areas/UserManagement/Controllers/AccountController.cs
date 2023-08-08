@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SchoolWebsite.Models;
@@ -20,17 +21,19 @@ public class AccountController : Controller
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public IActionResult Login()
     {
         return View();
     }
 
     [HttpPost]
+    [AllowAnonymous]
     public async Task<IActionResult> Login(LoginVm vm)
     {
         try
         {
-            if (ModelState.IsValid) { return View(vm); }
+            if (!ModelState.IsValid) { return View(vm); }
             var result = await _signInManager.PasswordSignInAsync(vm.UserName!, vm.Password!, vm.RememberMe, false);
             if (!result.Succeeded)
             {
@@ -38,7 +41,7 @@ public class AccountController : Controller
                 return View(vm);
             }
             _notyfService.Success("Login successful");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home", new { area = "Administrator" });
         }
         catch (Exception ex)
         {

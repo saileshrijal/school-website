@@ -1,0 +1,28 @@
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> _userManager;
+
+@{
+    var loggedInUser = await _userManager.GetUserAsync(User);
+    var loggedInUserRole = await _userManager.GetRolesAsync(loggedInUser!);
+}
+
+<div class="profile_info d-flex align-items-center">
+    <div class="profile_thumb mr_20">
+        <img src="~/admin/img/transfer/4.png" alt="#">
+    </div>
+    <div class="author_name">
+        <h4 class="f_s_15 f_w_500 mb-0">@loggedInUser!.FullName</h4>
+        <p class="f_s_12 f_w_400">@loggedInUserRole.FirstOrDefault()</p>
+    </div>
+    <div class="profile_info_iner">
+        <div class="profile_author_name">
+            <p>@loggedInUserRole.FirstOrDefault()</p>
+            <h5>@loggedInUser!.FullName</h5>
+        </div>
+        <div class="profile_info_details">
+            <a href="#">My Profile </a>
+            <a href="#">Settings</a>
+            <a href="#">Log Out </a>
+        </div>
+    </div>
+</div>

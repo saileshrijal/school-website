@@ -5,7 +5,7 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>@ViewData["Title"] - BookShop</title>
+    <title>@ViewData["Title"] - CMS</title>
     <link rel="icon" href="~/admin/img/mini_logo.png" type="image/png">
 
     <link rel="stylesheet" href="~/admin/css/bootstrap1.min.css" />
@@ -53,12 +53,22 @@
         </div>
         <ul id="sidebar_menu">
             <li class="">
-                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" aria-expanded="false">
+                <a asp-area="Administrator" asp-controller="Home" asp-action="Index" aria-expanded="false">
                     <div class="nav_icon_small">
                         <img src="~/admin/img/menu-icon/1.svg" alt="">
                     </div>
                     <div class="nav_title">
-                        <span>Dashboard </span>
+                        <span>Dashboard</span>
+                    </div>
+                </a>
+            </li>
+            <li class="">
+                <a asp-area="UserManagement" asp-controller="User" asp-action="Index" aria-expanded="false">
+                    <div class="nav_icon_small">
+                        <img src="~/admin/img/menu-icon/4.svg" alt="">
+                    </div>
+                    <div class="nav_title">
+                        <span>User</span>
                     </div>
                 </a>
             </li>
@@ -74,20 +84,6 @@
                 <ul>
                     <li><a asp-area="Admin" asp-controller="Category" asp-action="Create">Add New</a></li>
                     <li><a asp-area="Admin" asp-controller="Category" asp-action="Index">All Categories</a></li>
-                </ul>
-            </li>
-            <li class="">
-                <a class="has-arrow" href="#" aria-expanded="false">
-                    <div class="nav_icon_small">
-                        <img src="~/admin/img/menu-icon/4.svg" alt="">
-                    </div>
-                    <div class="nav_title">
-                        <span>Author</span>
-                    </div>
-                </a>
-                <ul>
-                    <li><a asp-area="Admin" asp-controller="Author" asp-action="Create">Add New</a></li>
-                    <li><a asp-area="Admin" asp-controller="Author" asp-action="Index">All Authors</a></li>
                 </ul>
             </li>
         </ul>
@@ -107,11 +103,6 @@
                         </div>
                         <div class="header_right d-flex justify-content-between align-items-center">
                             <div class="header_notification_warp d-flex align-items-center">
-                                <li>
-                                    <a class="CHATBOX_open nav-link-notify" href="#"> <img
-                                            src="~/admin/img/icon/msg.svg" alt="">
-                                    </a>
-                                </li>
                                 <li>
                                     <a class="bell_notification_clicker nav-link-notify" href="#"> <img
                                             src="~/admin/img/icon/bell.svg" alt="">
@@ -205,26 +196,8 @@
 
                                 </li>
                             </div>
-                            <div class="profile_info d-flex align-items-center">
-                                <div class="profile_thumb mr_20">
-                                    <img src="~/admin/img/transfer/4.png" alt="#">
-                                </div>
-                                <div class="author_name">
-                                    <h4 class="f_s_15 f_w_500 mb-0">Jiue Anderson</h4>
-                                    <p class="f_s_12 f_w_400">Manager</p>
-                                </div>
-                                <div class="profile_info_iner">
-                                    <div class="profile_author_name">
-                                        <p>Manager</p>
-                                        <h5>Jiue Anderson</h5>
-                                    </div>
-                                    <div class="profile_info_details">
-                                        <a href="#">My Profile </a>
-                                        <a href="#">Settings</a>
-                                        <a href="#">Log Out </a>
-                                    </div>
-                                </div>
-                            </div>
+                            <partial name="_LoginPartial" />
+
                         </div>
                     </div>
                 </div>
@@ -315,23 +288,23 @@
 
     <script>
         @* when delete button is clicked *@
-        $(document).ready(function () {
-            $(".deleteBtn").click(function () {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $(this).next("form").submit();
-                    }
-                })
+            $(document).ready(function () {
+                $(".deleteBtn").click(function () {
+                    Swal.fire({
+                        title: 'Are you sure?',
+                        text: "You won't be able to revert this!",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, delete it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $(this).next("form").submit();
+                        }
+                    })
+                });
             });
-        });
     </script>
 
     @await Component.InvokeAsync("Notyf")

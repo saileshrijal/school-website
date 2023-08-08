@@ -32,7 +32,8 @@ namespace SchoolWebsite.Seeder
                 EmailConfirmed = true,
                 FirstName = "Super",
                 LastName = "Admin",
-                Status = true
+                Status = true,
+                CreatedDate = DateTime.UtcNow,
             };
             var result = await _userManager.CreateAsync(adminUser, "Admin@0011");
             if (!result.Succeeded) { throw new Exception("Admin user creation failed"); }
