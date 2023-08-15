@@ -34,6 +34,19 @@ public class AccountController : Controller
         try
         {
             if (!ModelState.IsValid) { return View(vm); }
+            //check status
+            var user = await _signInManager.UserManager.FindByNameAsync(vm.UserName!);
+            if (user == null)
+            {
+                _notyfService.Error("Invalid username or password");
+                return View(vm);
+            }
+            if (!user.Status)
+            {
+                _notyfService.Error("Your account is not active");
+                return View(vm);
+            }
+            //login
             var result = await _signInManager.PasswordSignInAsync(vm.UserName!, vm.Password!, vm.RememberMe, false);
             if (!result.Succeeded)
             {
@@ -57,12 +70,12 @@ public class AccountController : Controller
         {
             await _signInManager.SignOutAsync();
             _notyfService.Success("Logout successful");
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Login), "Account", new { area = "UserManagement" });
         }
         catch (Exception ex)
         {
             _notyfService.Error(ex.Message);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(Index), "Home", new { area = "Administrator" });    
         }
     }
 }

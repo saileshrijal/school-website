@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SchoolWebsite.ViewModels.UserViewModels
 {
-    public class EditUserVm
+    public class ProfileVm
     {
-        public string? Id { get; set; }
         [Required(ErrorMessage = "First Name is required")]
         public string? FirstName { get; set; }
         [Required(ErrorMessage = "Last Name is required")]
@@ -18,10 +17,7 @@ namespace SchoolWebsite.ViewModels.UserViewModels
         public string? PermanentAddress { get; set; }
         [Required(ErrorMessage = "Email is required")]
         public string? Email { get; set; }
-        [Required(ErrorMessage = "User Name is required")]
-        public string? RoleId { get; set; }
         public string? ImageUrl { get; set; }
         public IFormFile? Image { get; set; }
-        public List<SelectListItem>? RoleSelectList { get; set; }
     }
 }

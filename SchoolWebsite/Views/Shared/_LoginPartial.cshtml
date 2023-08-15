@@ -4,11 +4,13 @@
 @{
     var loggedInUser = await _userManager.GetUserAsync(User);
     var loggedInUserRole = await _userManager.GetRolesAsync(loggedInUser!);
+    var loggedInUserImage = loggedInUser!.ImageUrl == null ? "/admin/default-img/profile.jpg" :
+    "/uploads/user/" + loggedInUser!.ImageUrl;
 }
 
 <div class="profile_info d-flex align-items-center">
     <div class="profile_thumb mr_20">
-        <img src="~/admin/img/transfer/4.png" alt="#">
+        <img src="@loggedInUserImage">
     </div>
     <div class="author_name">
         <h4 class="f_s_15 f_w_500 mb-0">@loggedInUser!.FullName</h4>
@@ -20,9 +22,11 @@
             <h5>@loggedInUser!.FullName</h5>
         </div>
         <div class="profile_info_details">
-            <a href="#">My Profile </a>
+            <a asp-area="UserManagement" asp-controller="User" asp-action="Profile">My Profile </a>
             <a href="#">Settings</a>
-            <a href="#">Log Out </a>
+            <form asp-area="UserManagement" asp-controller="Account" asp-action="Logout">
+                <button type="submit" class="btn btn-primary" >Log Out</button>
+            </form>
         </div>
     </div>
 </div>

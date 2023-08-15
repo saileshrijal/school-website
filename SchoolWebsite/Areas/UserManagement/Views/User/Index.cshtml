@@ -31,8 +31,7 @@
                                         </div>
                                     </div>
                                     <div class="add_button ms-2">
-                                        <a asp-area="Admin" asp-controller="Category" asp-action="Create"
-                                            class="btn_1">Add
+                                        <a asp-action="Create" class="btn_1">Add
                                             New</a>
                                     </div>
                                 </div>
@@ -58,7 +57,7 @@
                                         {
                                             <tr>
                                                 <td>
-                                                    <img src="~/admin/default-img/profile.jpg"
+                                                    <img src='@(item.ImageUrl==null?"/admin/default-img/profile.jpg":"/uploads/user/"+item.ImageUrl)'
                                                         class="img-fluid rounded-circle" height="50" width="50">
                                                 </td>
                                                 <td>@item.Email</td>
@@ -76,19 +75,33 @@
                                                 </td>
                                                 <td>
                                                     <div class="dropstart">
-                                                        <button type="button" class="btn btn-primary "
+                                                        <button type="button" class="btn btn-primary w-100"
                                                             data-bs-toggle="dropdown" aria-expanded="false">
                                                             <i class="fa fa-shield"></i>
                                                         </button>
                                                         <ul class="dropdown-menu">
-                                                            <li><a class="dropdown-item" href="#"><i class="fa fa-edit"></i>
+                                                            <li><a class="dropdown-item" asp-action="Edit"
+                                                                    asp-route-id="@item.Id"><i class="fa fa-edit"></i>
                                                                     Edit</a></li>
-                                                            <li><a class="dropdown-item" href="#"><i
-                                                                        class="fa fa-trash"></i> Delete</a></li>
-                                                            <li><a class="dropdown-item" href="#"><i class="fa fa-key"></i>
-                                                                    Change Password</a></li>
-                                                            <li><a class="dropdown-item" href="#"><i
-                                                                        class="fa fa-thumbs-down"></i> Disabled</a></li>
+                                                            <li>
+                                                                <button type="button" class="dropdown-item deleteBtn"><i
+                                                                        class="fa fa-trash"></i> Delete</button>
+                                                                <form asp-action="Delete" asp-route-id="@item.Id">
+                                                                </form>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item" asp-action="ResetPassword"
+                                                                    asp-route-id="@item.Id"><i class="fa fa-key"></i>
+                                                                    Reset Password</a></li>
+
+                                                            <li>
+                                                                <form asp-action="ToggleStatus" asp-route-id="@item.Id">
+                                                                    <button type="submit" class="dropdown-item"><i
+                                                                            class='fa @(item.Status?"fa-thumbs-down":"fa-thumbs-up")'></i>
+                                                                        @(item.Status ? "Disable" : "Enable")</button>
+                                                                </form>
+
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </td>
