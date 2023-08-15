@@ -397,5 +397,46 @@ namespace SchoolWebsite.Areas.UserManagement.Controllers
                 return View(vm);
             }
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            var vm = new ChangePasswordVm();
+            return View(vm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVm vm)
+        {
+            try
+            {
+                if (!ModelState.IsValid) { return View(vm); }
+                var user = await _userManager.FindByNameAsync(User.Identity!.Name!);
+                if (user == null)
+                {
+                    _notyfService.Error("User not found.");
+                    return RedirectToAction(nameof(Index));
+                }
+                var checkPassword = await _userManager.CheckPasswordAsync(user, vm.CurrentPassword!);
+                if (!checkPassword)
+                {
+                    _notyfService.Error("Current password is incorrect.");
+                    return View(vm);
+                }
+                var result = await _userManager.ChangePasswordAsync(user, vm.CurrentPassword!, vm.NewPassword!);
+                if (!result.Succeeded)
+                {
+                    _notyfService.Error("Something went wrong. Please try again.");
+                    return View(vm);
+                }
+                _notyfService.Success("Password changed successfully.");
+                return RedirectToAction(nameof(Profile));
+            }
+            catch (Exception ex)
+            {
+                _notyfService.Error(ex.Message);
+                return View(vm);
+            }
+        }
     }
 }
