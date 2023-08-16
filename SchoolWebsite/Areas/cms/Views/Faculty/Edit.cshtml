@@ -1,0 +1,47 @@
+@model EditFacultyVm
+@{
+    ViewData["Title"] = "Edit Faculty";
+}
+
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
+                    <div class="white_card_header">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">Edit Faculty</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="white_card_body">
+                        <div class="card-body">
+                            <form asp-action="Edit">
+                                <input type="hidden" asp-for="Id" />
+                                <div class="row">
+                                    <div class="mb-3">
+                                        <label class="form-label" for="Name">Faculty Name<span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="Name" placeholder="Faculty Name"
+                                            required asp-for="Name">
+                                        <span asp-validation-for="Name" class="text-danger"></span>
+
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a asp-action="Index" class="btn btn-warning">Go Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
