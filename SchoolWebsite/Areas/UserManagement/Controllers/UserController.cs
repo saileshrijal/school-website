@@ -28,9 +28,18 @@ namespace SchoolWebsite.Areas.UserManagement.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string search)
         {
-            var users = await _userManager.Users.ToListAsync();
+            var users = new List<ApplicationUser>();
+            if (string.IsNullOrEmpty(search))
+            {
+                users = await _userManager.Users.ToListAsync();
+            }
+            else
+            {
+                users = await _userManager.Users.Where(x => x.FirstName!.Contains(search) || x.LastName!.Contains(search) || x.Email!.Contains(search) || x.UserName!.Contains(search)).ToListAsync();
+            }
+            ViewBag.Search = search;
             var vm = users.Select(x => new UserVm()
             {
                 Id = x.Id,

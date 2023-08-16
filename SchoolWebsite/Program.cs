@@ -42,9 +42,11 @@ builder.Services.AddScoped<IFileHelper, FileHelper>();
 
 // Repositories
 builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 
 // Services
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+builder.Services.AddScoped<IDesignationService, DesignationService>();
 
 var app = builder.Build();
 
