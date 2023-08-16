@@ -11,5 +11,6 @@ namespace SchoolWebsite.Data
 
         }
         public DbSet<ApplicationUser>? ApplicationUsers { get; set; }
+        public DbSet<Organization>? Organizations { get; set; }
     }
 }

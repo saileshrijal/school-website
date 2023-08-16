@@ -24,6 +24,10 @@ public class AccountController : Controller
     [AllowAnonymous]
     public IActionResult Login()
     {
+        if (User.Identity!.IsAuthenticated)
+        {
+            return RedirectToAction(nameof(Index), "Home", new { area = "Administrator" });
+        }
         return View();
     }
 

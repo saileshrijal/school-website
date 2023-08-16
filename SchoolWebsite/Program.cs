@@ -10,6 +10,8 @@ using SchoolWebsite.Repositories;
 using SchoolWebsite.Repositories.Interface;
 using SchoolWebsite.Seeder;
 using SchoolWebsite.Seeder.Interface;
+using SchoolWebsite.Services;
+using SchoolWebsite.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,12 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 //Helpers
 builder.Services.AddScoped<IFileHelper, FileHelper>();
+
+// Repositories
+builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+
+// Services
+builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 
 var app = builder.Build();
 
