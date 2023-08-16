@@ -21,20 +21,20 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label class="form-label" for="FirstName">First Name</label>
+                                            <label class="form-label" for="FirstName">First Name<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="FirstName"
                                                 placeholder="First Name" required asp-for="FirstName">
                                             <span asp-validation-for="FirstName" class="text-danger"></span>
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="LastName">Last Name</label>
+                                            <label class="form-label" for="LastName">Last Name<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="LastName"
                                                 placeholder="Last Name" required asp-for="LastName">
                                             <span asp-validation-for="LastName" class="text-danger"></span>
 
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="PrimaryContact">Primary Contact</label>
+                                            <label class="form-label" for="PrimaryContact">Primary Contact<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="PrimaryContact"
                                                 placeholder="Primary Contact" required asp-for="PrimaryContact">
                                             <span asp-validation-for="PrimaryContact" class="text-danger"></span>
@@ -55,7 +55,7 @@
 
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="PermanentAddress">Permanent Address</label>
+                                            <label class="form-label" for="PermanentAddress">Permanent Address<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="PermanentAddress"
                                                 placeholder="Permanent Address" required asp-for="PermanentAddress">
                                             <span asp-validation-for="PermanentAddress" class="text-danger"></span>
@@ -74,14 +74,14 @@
 
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="Email">Email Address</label>
+                                            <label class="form-label" for="Email">Email Address<span class="text-danger">*</span></label>
                                             <input type="email" class="form-control" id="Email"
                                                 placeholder="Email Address" required asp-for="Email">
                                             <span asp-validation-for="Email" class="text-danger"></span>
 
                                         </div>
                                         <div class="mb-3">
-                                            <label class="form-label" for="UserName">Username</label>
+                                            <label class="form-label" for="UserName">Username<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="UserName" placeholder="Username"
                                                 required asp-for="UserName">
                                             <span asp-validation-for="UserName" class="text-danger"></span>
@@ -89,7 +89,7 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label" for="Password">Choose Role</label>
+                                            <label class="form-label" for="Password">Choose Role<span class="text-danger">*</span></label>
                                             <select class="form-control" asp-for="RoleId" required
                                                 asp-items="Model.RoleSelectList">
                                             </select>
@@ -101,7 +101,7 @@
                                 <div class="row">
                                     <div class="col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label class="form-label" for="Password">Password</label>
+                                            <label class="form-label" for="Password">Password<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="Password" placeholder="Password"
                                                 required asp-for="Password">
                                             <span asp-validation-for="Password" class="text-danger"></span>
@@ -109,7 +109,7 @@
                                     </div>
                                     <div class="col-md-6 col-sm-12">
                                         <div class="mb-3">
-                                            <label class="form-label" for="ConfirmPassword">Confirm Password</label>
+                                            <label class="form-label" for="ConfirmPassword">Confirm Password<span class="text-danger">*</span></label>
                                             <input type="text" class="form-control" id="ConfirmPassword" placeholder="ConfirmPassword"
                                                 required asp-for="ConfirmPassword">
                                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
