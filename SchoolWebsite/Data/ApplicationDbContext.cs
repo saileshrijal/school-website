@@ -18,5 +18,6 @@ namespace SchoolWebsite.Data
         public DbSet<Link>? Links { get; set; }
         public DbSet<Course>? Courses { get; set; }
         public DbSet<PageCategory>? PageCategories { get; set; }
+        public DbSet<BlogCategory>? BlogCategories { get; set; }
     }
 }

@@ -48,6 +48,7 @@ builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
 builder.Services.AddScoped<ILinkRepository, LinkRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IPageCategoryRepository, PageCategoryRepository>();
+builder.Services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
 
 
 // Services
@@ -58,6 +59,7 @@ builder.Services.AddScoped<IGalleryService, GalleryService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddScoped<IPageCategoryService, PageCategoryService>();
+builder.Services.AddScoped<IBlogCategoryService, BlogCategoryService>();
 
 var app = builder.Build();
 
@@ -77,10 +79,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "area",
-    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
+    pattern: "{area=Administrator}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
 
-app.MapControllerRoute(
-name: "default",
-pattern: "{controller=Home}/{action=Index}/{id?}");
+// app.MapControllerRoute(
+// name: "default",
+// pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
