@@ -1,0 +1,97 @@
+@model EditTestimonialVm
+@{
+    ViewData["Title"] = "Edit Testimonial";
+    var imageUrl = Model.ImageUrl != null ? "/uploads/testimonials/" + Model.ImageUrl : "/admin/default-img/thumbnail.jpg";
+}
+
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
+                    <div class="white_card_header">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">Edit Testimonial</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="white_card_body">
+                        <div class="card-body">
+                            <form asp-action="Edit" enctype="multipart/form-data">
+                                <input type="hidden" asp-for="Id" />
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Name">Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="Name" placeholder="Name"
+                                                required asp-for="Name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Designation">Designation<span
+                                                    class="text-danger">*</span></label>
+                                            <select id="Designation" required asp-for="DesignationId"
+                                                asp-items="@Model.DesignationSelectList" class="form-select"></select>
+                                            <span asp-validation-for="DesignationId" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Organization">Associated Organization<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="Organization"
+                                                placeholder="Organization" required asp-for="Organization">
+                                            <span asp-validation-for="Organization" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <img src="@imageUrl" height="150" width="150"
+                                                id="img-preview" class="object-fit-fill">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="img-input">Image</label>
+                                            <input type="file" accept="image/jpg" class="form-control" id="img-input"
+                                                asp-for="Image">
+                                            <span asp-validation-for="Image" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Statement">Statement<span
+                                                    class="text-danger">*</span></label>
+                                            <textarea id="Statement" cols="30" rows="10" class="form-control" required
+                                                asp-for="Statement"></textarea>
+                                            <span asp-validation-for="Statement" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a asp-action="Index" class="btn btn-warning">Go Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @* preview image *@
+    <script>
+        $(document).ready(function () {
+            $("#img-input").change(function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#img-preview").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
+}

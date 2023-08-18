@@ -20,5 +20,6 @@ namespace SchoolWebsite.Data
         public DbSet<PageCategory>? PageCategories { get; set; }
         public DbSet<BlogCategory>? BlogCategories { get; set; }
         public DbSet<Faq>? Faqs { get; set; }
+        public DbSet<Testimonial>? Testimonials { get; set; }
     }
 }

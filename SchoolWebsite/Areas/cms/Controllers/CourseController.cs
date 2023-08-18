@@ -31,11 +31,11 @@ namespace SchoolWebsite.Areas.cms.Controllers
             var courses = new List<Course>();
             if(string.IsNullOrEmpty(search))
             {
-                courses = await _courseRepository.GetAllCoursesWithFaculty();
+                courses = await _courseRepository.GetAllCoursesWithFacultyAsync();
             }
             else
             {
-                courses = await _courseRepository.GetAllCoursesWithFaculty(search);
+                courses = await _courseRepository.GetAllCoursesWithFacultyAsync(search);
             }
             ViewBag.Search = search;
             var vm = courses.Select(x => new CourseVm()
@@ -124,7 +124,7 @@ namespace SchoolWebsite.Areas.cms.Controllers
         {
             try
             {
-                var course = await _courseRepository.GetCourseWithFaculty(id);
+                var course = await _courseRepository.GetCourseWithFacultyAsync(id);
                 var faculties = await _facultyRepository.GetAllAsync();
                 var vm = new EditCourseVm()
                 {

@@ -11,7 +11,7 @@ namespace SchoolWebsite.Repositories
         {
         }
 
-        public async Task<List<Course>> GetAllCoursesWithFaculty(string? search = null)
+        public async Task<List<Course>> GetAllCoursesWithFacultyAsync(string? search = null)
         {
             if (!string.IsNullOrEmpty(search))
             {
@@ -23,7 +23,7 @@ namespace SchoolWebsite.Repositories
             }
         }
 
-        public async Task<Course> GetCourseWithFaculty(int id)
+        public async Task<Course> GetCourseWithFacultyAsync(int id)
         {
             return await _context.Courses!.Include(c => c.Faculty).FirstOrDefaultAsync(c => c.Id == id) ?? throw new Exception("Course not found");
         }
