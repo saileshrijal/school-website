@@ -1,4 +1,4 @@
-namespace SchoolWebsite.ViewModels.LinkViewModel
+namespace SchoolWebsite.ViewModels.LinkViewModels
 {
     public class EditLinkVm
     {

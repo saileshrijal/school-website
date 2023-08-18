@@ -4,8 +4,7 @@ using SchoolWebsite.Dtos.LinkDto;
 using SchoolWebsite.Models;
 using SchoolWebsite.Repositories.Interface;
 using SchoolWebsite.Services.Interface;
-
-using SchoolWebsite.ViewModels.LinkViewModel;
+using SchoolWebsite.ViewModels.LinkViewModels;
 
 namespace SchoolWebsite.Areas.cms.Controllers
 {

@@ -1,0 +1,123 @@
+@model CreateCourseVm
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<div class="main_content_iner ">
+    <div class="container-fluid p-0">
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <div class="white_card card_height_100 mb_30">
+                    <div class="white_card_header">
+                        <div class="box_header m-0">
+                            <div class="main-title">
+                                <h3 class="m-0">Add New Course</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="white_card_body">
+                        <div class="card-body">
+                            <form asp-action="Create" enctype="multipart/form-data">
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Name">Course Name<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" class="form-control" id="FirstName"
+                                                placeholder="Course Name" required asp-for="Name">
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Faculty">Faculty<span
+                                                    class="text-danger">*</span></label>
+                                            <select id="Faculty" required asp-for="FacultyId"
+                                                asp-items="@Model.FacultySelectList" class="form-select"></select>
+                                            <span asp-validation-for="FacultyId" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="NumberOfYears">No. of Years<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="NumberOfYears"
+                                                placeholder="No. of Years" required asp-for="NumberOfYears">
+                                            <span asp-validation-for="NumberOfYears" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="NumberOfSem">No. of Semesters<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="number" class="form-control" id="NumberOfSem"
+                                                placeholder="No. of Semesters" required asp-for="NumberOfSem">
+                                            <span asp-validation-for="NumberOfSem" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Objectives">Objectives</label>
+                                            <textarea class="form-control" id="Objectives"
+                                                asp-for="Objectives" rows="8"></textarea>
+                                            <span asp-validation-for="Objectives" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="AdmissionRequirement">Admission
+                                                Requirement</label>
+                                            <textarea class="form-control" id="AdmissionRequirement"
+                                                asp-for="AdmissionRequirement" rows="8"></textarea>
+                                            <span asp-validation-for="AdmissionRequirement" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <img src="~/admin/default-img/thumbnail.jpg" height="150" width="200" id="img-preview" class="object-fit-cover">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="img-input">Course Image</label>
+                                            <input type="file" accept="image/jpg" class="form-control" id="img-input"
+                                                asp-for="Image">
+                                            <span asp-validation-for="Image" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="img-input">Syllabus</label>
+                                            <input type="file" accept="image/jpg, pdf" class="form-control"
+                                                asp-for="Syllabus">
+                                            <span asp-validation-for="Syllabus" class="text-danger"></span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label" for="Scopes">Scopes</label>
+                                            <textarea class="form-control" id="Scopes"
+                                                asp-for="Scopes" rows="8"></textarea>
+                                            <span asp-validation-for="Scopes" class="text-danger"></span>
+                                        </div>
+                                           <div class="mb-3">
+                                            <label class="form-label" for="CourseOfStudy">Course of Study</label>
+                                            <textarea class="form-control" id="CourseOfStudy"
+                                                asp-for="CourseOfStudy" rows="8"></textarea>
+                                            <span asp-validation-for="CourseOfStudy" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                                <a asp-action="Index" class="btn btn-warning">Go Back</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    @* preview image *@
+    <script>
+        $(document).ready(function () {
+            $("#img-input").change(function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("#img-preview").attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
+        });
+    </script>
+}

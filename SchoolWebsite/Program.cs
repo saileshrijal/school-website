@@ -46,13 +46,18 @@ builder.Services.AddScoped<IDesignationRepository, DesignationRepository>();
 builder.Services.AddScoped<IFacultyRepository, FacultyRepository>();
 builder.Services.AddScoped<IGalleryRepository, GalleryRepository>();
 builder.Services.AddScoped<ILinkRepository, LinkRepository>();
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IPageCategoryRepository, PageCategoryRepository>();
+
 
 // Services
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 builder.Services.AddScoped<IDesignationService, DesignationService>();
 builder.Services.AddScoped<IFacultyService, FacultyService>();
 builder.Services.AddScoped<IGalleryService, GalleryService>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
+builder.Services.AddScoped<IPageCategoryService, PageCategoryService>();
 
 var app = builder.Build();
 
