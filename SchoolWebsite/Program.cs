@@ -49,6 +49,7 @@ builder.Services.AddScoped<ILinkRepository, LinkRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IPageCategoryRepository, PageCategoryRepository>();
 builder.Services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
+builder.Services.AddScoped<IFaqRepository, FaqRepository>();
 
 
 // Services
@@ -60,6 +61,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<ILinkService, LinkService>();
 builder.Services.AddScoped<IPageCategoryService, PageCategoryService>();
 builder.Services.AddScoped<IBlogCategoryService, BlogCategoryService>();
+builder.Services.AddScoped<IFaqService, FaqService>();
 
 var app = builder.Build();
 
