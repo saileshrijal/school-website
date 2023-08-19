@@ -22,5 +22,6 @@ namespace SchoolWebsite.Data
         public DbSet<Faq>? Faqs { get; set; }
         public DbSet<Testimonial>? Testimonials { get; set; }
         public DbSet<Blog>? Blogs { get; set; }
+        public DbSet<Notice>? Notices { get; set; }
     }
 }

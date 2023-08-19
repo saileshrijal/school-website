@@ -52,6 +52,7 @@ builder.Services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
 builder.Services.AddScoped<IFaqRepository, FaqRepository>();
 builder.Services.AddScoped<ITestimonialRepository, TestimonialRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<INoticeRepository, NoticeRepository>();
 
 
 // Services
@@ -66,6 +67,7 @@ builder.Services.AddScoped<IBlogCategoryService, BlogCategoryService>();
 builder.Services.AddScoped<IFaqService, FaqService>();
 builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<IBlogService, BlogService>();
+builder.Services.AddScoped<INoticeService, NoticeService>();
 
 var app = builder.Build();
 
