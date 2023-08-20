@@ -1,28 +1,31 @@
 
+using System.Text.RegularExpressions;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Mvc;
 using SchoolWebsite.Dtos.FacultyDto;
+using SchoolWebsite.Dtos.VideoDto;
 using SchoolWebsite.Models;
 using SchoolWebsite.Repositories.Interface;
 using SchoolWebsite.Services.Interface;
 using SchoolWebsite.ViewModels.DesignationViewModels;
 using SchoolWebsite.ViewModels.FacultyViewModels;
+using SchoolWebsite.ViewModels.VideoViewModels;
 
 namespace SchoolWebsite.Areas.cms.Controllers
 {
     [Area("cms")]
-    public class FacultyController : Controller
+    public class VideoController : Controller
     {
-        private readonly IFacultyRepository _facultyRepository;
-        private readonly IFacultyService _facultyService;
+        private readonly IVideoRepository _videoRepository;
+        private readonly IVideoService _videoService;
         private readonly INotyfService _notyfService;
 
-        public FacultyController(IFacultyRepository facultyRepository,
-                                    IFacultyService facultyService,
+        public VideoController(IVideoRepository videoRepository,
+                                    IVideoService videoService,
                                     INotyfService notyfService)
         {
-            _facultyRepository = facultyRepository;
-            _facultyService = facultyService;
+            _videoRepository = videoRepository;
+            _videoService = videoService;
             _notyfService = notyfService;
         }
 
@@ -30,22 +33,24 @@ namespace SchoolWebsite.Areas.cms.Controllers
         public async Task<IActionResult> Index(string? search)
         {
             // implementing search functionality
-            var faculties = new List<Faculty>();
+            var videos = new List<Video>();
             if (search == null)
             {
-                faculties = await _facultyRepository.GetAllAsync();
+                videos = await _videoRepository.GetAllAsync();
             }
             else
             {
-                faculties = await _facultyRepository.FindByAsync(x => x.Name!.Contains(search));
+                videos = await _videoRepository.FindByAsync(x => x.Name!.Contains(search));
             }
             ViewBag.Search = search;
-            var vm = faculties.Select(x => new FacultyVm()
+            var vm = videos.Select(x => new VideoVm()
             {
                 Id = x.Id,
                 Name = x.Name,
+                Description = x.Description,
                 Status = x.Status,
-                CreatedDate = x.CreatedDate
+                CreatedDate = x.CreatedDate,
+                VideoUrl = x.VideoUrl,
             }).ToList();
             return View(vm);
         }
@@ -57,17 +62,19 @@ namespace SchoolWebsite.Areas.cms.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateFacultyVm vm)
+        public async Task<IActionResult> Create(CreateVideoVm vm)
         {
             try
             {
                 if (!ModelState.IsValid) { return View(vm); }
-                var dto = new CreateFacultyDto()
+                var dto = new CreateVideoDto()
                 {
                     Name = vm.Name,
+                    Description = vm.Description,
                 };
-                await _facultyService.CreateAsync(dto);
-                _notyfService.Success("Faculty created successfully");
+                dto.VideoUrl = GetVideoId(vm.VideoUrl!);
+                await _videoService.CreateAsync(dto);
+                _notyfService.Success("Video created successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -81,28 +88,32 @@ namespace SchoolWebsite.Areas.cms.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var faculty = await _facultyRepository.GetByIdAsync(id);
-            var vm = new EditFacultyVm()
+            var video = await _videoRepository.GetByIdAsync(id);
+            var vm = new EditVideoVm()
             {
-                Id = faculty.Id,
-                Name = faculty.Name,
+                Id = video.Id,
+                Name = video.Name,
+                VideoUrl = video.VideoUrl,
+                Description = video.Description,
             };
             return View(vm);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditFacultyVm vm)
+        public async Task<IActionResult> Edit(EditVideoVm vm)
         {
             try
             {
                 if (!ModelState.IsValid) { return View(vm); }
-                var dto = new EditFacultyDto()
+                var dto = new EditVideoDto()
                 {
                     Id = vm.Id,
                     Name = vm.Name,
+                    Description = vm.Description,
                 };
-                await _facultyService.EditAsync(dto);
-                _notyfService.Success("Faculty updated successfully");
+                dto.VideoUrl = GetVideoId(vm.VideoUrl!);
+                await _videoService.EditAsync(dto);
+                _notyfService.Success("Video updated successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -117,8 +128,8 @@ namespace SchoolWebsite.Areas.cms.Controllers
         {
             try
             {
-                await _facultyService.DeleteAsync(id);
-                _notyfService.Success("Faculty deleted successfully");
+                await _videoService.DeleteAsync(id);
+                _notyfService.Success("Video deleted successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -133,8 +144,8 @@ namespace SchoolWebsite.Areas.cms.Controllers
         {
             try
             {
-                await _facultyService.ToggleStatusAsync(id);
-                _notyfService.Success("Faculty status changed successfully");
+                await _videoService.ToggleStatusAsync(id);
+                _notyfService.Success("Video status changed successfully");
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
@@ -142,6 +153,13 @@ namespace SchoolWebsite.Areas.cms.Controllers
                 _notyfService.Error(ex.Message);
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        private string GetVideoId(string url)
+        {
+            string pattern = @"(?:\/|v=|vi=|v%3D|v\/|vi\/|u\/\w\/|embed\/|e\/|user\/\w\/|watch\?v=|\&v=|\?v=)([a-zA-Z0-9_\-]{11})";
+            Match match = Regex.Match(url, pattern);
+            return match.Groups[1].Value;
         }
     }
 }

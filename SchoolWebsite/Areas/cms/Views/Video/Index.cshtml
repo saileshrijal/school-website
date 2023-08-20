@@ -1,6 +1,6 @@
-@model List<FacultyVm>
+@model List<VideoVm>
 @{
-    ViewData["Title"] = "Faculties";
+    ViewData["Title"] = "Videos";
 }
 
 <div class="main_content_iner ">
@@ -11,14 +11,14 @@
                     <div class="white_card_header">
                         <div class="box_header m-0">
                             <div class="main-title">
-                                <h3 class="m-0">Faculties</h3>
+                                <h3 class="m-0">Videos</h3>
                             </div>
                         </div>
                     </div>
                     <div class="white_card_body">
                         <div class="QA_section">
                             <div class="white_box_tittle list_header">
-                                <h4>List of Faculties</h4>
+                                <h4>List of Videos</h4>
                                 <div class="box_right d-flex lms_block">
                                     <div class="serach_field_2">
                                         <div class="search_inner">
@@ -42,7 +42,9 @@
                                 <table class="table lms_table_active3">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Faculty Name</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Video</th>
+                                            <th scope="col">Description</th>
                                             <th scope="col">Created Date</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
@@ -53,6 +55,13 @@
                                         {
                                             <tr>
                                                 <td>@item.Name</td>
+                                                <td>
+                                                    <iframe class="embed-responsive-item" data-toggle="modal"
+                                                        data-target="#modal4" height="80" width="120"
+                                                        src="https://www.youtube.com/embed/@item.VideoUrl"
+                                                        allowfullscreen=""></iframe>
+                                                </td>
+                                                <td>@item.Description</td>
                                                 <td>@item.CreatedDate</td>
                                                 <td>
                                                     <span

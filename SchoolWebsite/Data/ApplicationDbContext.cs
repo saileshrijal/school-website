@@ -23,5 +23,6 @@ namespace SchoolWebsite.Data
         public DbSet<Testimonial>? Testimonials { get; set; }
         public DbSet<Blog>? Blogs { get; set; }
         public DbSet<Notice>? Notices { get; set; }
+        public DbSet<Video>? Videos { get; set; }
     }
 }
