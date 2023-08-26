@@ -55,6 +55,7 @@ builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<INoticeRepository, NoticeRepository>();
 builder.Services.AddScoped<IVideoRepository, VideoRepository>();
 builder.Services.AddScoped<IGalleryImageRepository, GalleryImageRepository>();
+builder.Services.AddScoped<IPageRepository, PageRepository>();
 
 
 // Services
@@ -72,6 +73,7 @@ builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<INoticeService, NoticeService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<IGalleryImageService, GalleryImageService>();
+builder.Services.AddScoped<IPageService, PageService>();
 
 var app = builder.Build();
 
