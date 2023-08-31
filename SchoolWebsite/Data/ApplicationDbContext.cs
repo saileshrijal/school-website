@@ -26,5 +26,6 @@ namespace SchoolWebsite.Data
         public DbSet<Video>? Videos { get; set; }
         public DbSet<GalleryImage>? GalleryImages { get; set; }
         public DbSet<Page>? Pages { get; set; }
+        public DbSet<Event>? Events { get; set; }
     }
 }

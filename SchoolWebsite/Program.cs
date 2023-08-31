@@ -56,6 +56,7 @@ builder.Services.AddScoped<INoticeRepository, NoticeRepository>();
 builder.Services.AddScoped<IVideoRepository, VideoRepository>();
 builder.Services.AddScoped<IGalleryImageRepository, GalleryImageRepository>();
 builder.Services.AddScoped<IPageRepository, PageRepository>();
+builder.Services.AddScoped<IEventRepository, EventRepository>();
 
 
 // Services
@@ -74,6 +75,7 @@ builder.Services.AddScoped<INoticeService, NoticeService>();
 builder.Services.AddScoped<IVideoService, VideoService>();
 builder.Services.AddScoped<IGalleryImageService, GalleryImageService>();
 builder.Services.AddScoped<IPageService, PageService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
 var app = builder.Build();
 
@@ -93,10 +95,10 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "area",
-    pattern: "{area=Administrator}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
+    pattern: "{area:Exists}/{controller=Home}/{action=Index}/{id?}").RequireAuthorization();
 
-// app.MapControllerRoute(
-// name: "default",
-// pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+name: "default",
+pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
